@@ -1,6 +1,6 @@
 """Files tests simple file read related operations"""
 from io import open
-import lists
+from tutorial import lists
 
 class SimpleFile(object):
     """SimpleFile tests using file read api to do some simple math"""
