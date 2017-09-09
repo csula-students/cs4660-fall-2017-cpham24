@@ -22,27 +22,17 @@ class SimpleFile(object):
           index += 1
 
     def get_mean(self, line_number):
-        return lists.get_avg(self.numbers[line_number])
+        list = self.numbers[line_number]
+        return lists.get_avg(list)
 
     def get_max(self, line_number):
         list = self.numbers[line_number]
-        max = list[0]
-        for num in list:
-          if num > max:
-            max = num
-        return max
+        return max(list)
 
     def get_min(self, line_number):
         list = self.numbers[line_number]
-        min = list[0]
-        for num in list:
-          if num < min:
-            min = num
-        return min
+        return min(list)
 
     def get_sum(self, line_number):
         list = self.numbers[line_number]
-        sum = 0
-        for num in list:
-          sum += num
-        return sum
+        return sum(list)

@@ -11,12 +11,7 @@ def get_second_and_third_items(li):
     return [li[1], li[2]]
 
 def get_sum(li):
-    sum = 0
-    for num in li:
-        sum += num
-    return sum
+    return sum(li)
 
 def get_avg(li):
-    size = len(li)
-    sum = float(get_sum(li))
-    return sum / size
+    return float(sum(li)) / len(li)
