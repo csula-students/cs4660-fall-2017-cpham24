@@ -10,13 +10,7 @@ class SimpleFile(object):
     self.numbers = []
     for line in content:
       entries = line.split(' ')
-      li = []
-      for entry in entries:
-        try:
-          x = int(entry)
-          li.append(x)
-        except ValueError:
-          """TODO: handle error"""
+      li = list(map(int, entries))
       self.numbers.append(li)
 
   def get_mean(self, line_number):
