@@ -39,9 +39,9 @@ def construct_graph_from_file(graph, file_path):
     f = open(file_path, encoding='utf-8')
     content = f.readlines()
     size = (extract_nums_from_line(content[0], ' '))[0];
-    """ graph = AdjacencyList() """
-    graph = AdjacencyMatrix()
-    """ graph = ObjectOriented() """
+    """graph = AdjacencyList()"""
+    """graph = AdjacencyMatrix()"""
+    graph = ObjectOriented()
 
     """ add nodes to the graph """
     i = 0
@@ -266,20 +266,45 @@ class ObjectOriented(object):
         self.nodes = []
 
     def adjacent(self, node_1, node_2):
-        pass
+        if node_1 in self.neighbors(node_2) or node_2 in self.neighbors(node_1):
+            return True
+        return False
 
     def neighbors(self, node):
-        pass
+        nb = []
+        if node in self.nodes:
+            for edge in self.edges:
+                if edge.from_node == node:
+                    nb.append(edge.to_node)
+        return nb
 
     def add_node(self, node):
-        pass
+        if node in self.nodes:
+            return False
+        self.nodes.append(node)
+        return True
 
     def remove_node(self, node):
-        pass
+        if node not in self.nodes:
+            return False
+
+        for edge in self.edges:
+            if edge.from_node == node or edge.to_node == node:
+                self.edges.remove(edge)
+
+        self.nodes.remove(node)
+        return True
 
     def add_edge(self, edge):
-        pass
+        """ check for invalid nodes or if the edge is already in the list of edges """
+        if edge.from_node not in self.nodes or edge.to_node not in self.nodes or edge in self.edges:
+            return False
+        self.edges.append(edge)
+        return True
 
     def remove_edge(self, edge):
-        pass
+        if edge not in self.edges:
+            return False
+        self.edges.remove(edge)
+        return True
 
