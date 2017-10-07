@@ -41,7 +41,7 @@ def construct_graph_from_file(graph, file_path):
     size = (extract_nums_from_line(content[0], ' '))[0];
     """graph = AdjacencyList()"""
     """graph = AdjacencyMatrix()"""
-    graph = ObjectOriented()
+    """graph = ObjectOriented()"""
 
     """ add nodes to the graph """
     i = 0
@@ -127,9 +127,6 @@ class AdjacencyList(object):
         for e in self.adjacency_list[node_1]:
             if node_2 == e.to_node:
                 return True
-        for e in self.adjacency_list[node_2]:
-            if node_1 == e.to_node:
-                return True
         return False
 
 
@@ -184,7 +181,7 @@ class AdjacencyMatrix(object):
             return False
         index1 = self.__get_node_index(node_1)
         index2 = self.__get_node_index(node_2)
-        if self.adjacency_matrix[index1][index2] is not None or self.adjacency_matrix[index2][index1] is not None:
+        if self.adjacency_matrix[index1][index2] is not None:
             return True
         return False
 
@@ -209,7 +206,7 @@ class AdjacencyMatrix(object):
 
         """ add an extra element to every list """
         for i in range(len(self.adjacency_matrix)):
-          self.adjacency_matrix[i].append(None)
+            self.adjacency_matrix[i].append(None)
 
         self.nodes.append(node)
 
@@ -224,6 +221,8 @@ class AdjacencyMatrix(object):
         """ remove this index from all arrays """
         for i in range(len(self.adjacency_matrix)):
             self.adjacency_matrix[i].pop(index)
+        """ remove the whole row """
+        self.adjacency_matrix.pop(index)
         self.nodes.remove(node)
         return True
 
