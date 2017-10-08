@@ -22,7 +22,7 @@ def bfs(graph, initial_node, dest_node):
         u = q.get()[1]
 
         for node in graph.neighbors(u):
-            if node not in distance:
+            if node not in distance_of:
                 edge_to[node] = graph.distance(u, node)
                 distance_of[node] = distance_of[u] + edge_to[node].weight
                 parent_of[node] = u
@@ -103,7 +103,7 @@ def dijkstra_search(graph, initial_node, dest_node):
     
     actions = []
     current_node = dest_node
-    
+
     while current_node in previous_of:
         actions.append(edge_to[current_node])
         current_node = previous_of[current_node]
