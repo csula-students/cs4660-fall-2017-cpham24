@@ -39,15 +39,11 @@ def construct_graph_from_file(graph, file_path):
     f = open(file_path, encoding='utf-8')
     content = f.readlines()
     size = (extract_nums_from_line(content[0], ' '))[0];
-    """graph = AdjacencyList()"""
-    """graph = AdjacencyMatrix()"""
-    """graph = ObjectOriented()"""
 
     """ add nodes to the graph """
     i = 0
-    while i < size:
+    for i in range(size):
         graph.add_node(Node(i))
-        i += 1
 
     """ remove first element which contains only the size """
     content.pop(0)
@@ -167,6 +163,12 @@ class AdjacencyList(object):
         self.adjacency_list[edge.from_node].remove(edge)
         return True
 
+    def distance(self, node_1, node_2):
+        for edge in self.adjacency_list[node_1]:
+            if node_2 == edge.to_node:
+                return edge
+        return None
+
 class AdjacencyMatrix(object):
     def __init__(self):
         # adjacency_matrix should be a two dimensions array of numbers that
@@ -246,6 +248,11 @@ class AdjacencyMatrix(object):
         self.adjacency_matrix[index1][index2] = None
         return True
 
+    def distance(self, node_1, node_2):
+        index1 = self.__get_node_index(node_1)
+        index2 = self.__get_node_index(node_2)
+        return Edge(node_1, node_2, self.adjacency_matrix[index1][index2])
+
     def __get_node_index(self, node):
         """helper method to find node index"""
         index = -1
@@ -306,4 +313,10 @@ class ObjectOriented(object):
             return False
         self.edges.remove(edge)
         return True
+
+    def distance(self, node_1, node_2):
+        for edge in self.edges:
+            if edge.from_node == node_1 and edge.to_node == node_2:
+                return edge
+        return None
 
