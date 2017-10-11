@@ -19,6 +19,9 @@ A Graph has following methods:
 * remove_edge
     - remove an edge from its internal data structure
     - returns true if the edge is removed and false if the edge does not exist
+* distance
+    - fetch an edge from its internal data structure
+    - returns an edge assuming the passed in nodes and an edge between them exist
 """
 
 from io import open

@@ -2,6 +2,7 @@
 Searches module defines all different search algorithms
 """
 from Queue import PriorityQueue
+import math
 
 def bfs(graph, initial_node, dest_node):
     """
@@ -119,4 +120,57 @@ def a_star_search(graph, initial_node, dest_node):
     uses graph to do search from the initial_node to dest_node
     returns a list of actions going from the initial node to dest_node
     """
-    pass
+    explored_set = []
+    unexplored_set = [(0, initial_node)]
+    parent_of = {}
+    edge_of = {}
+
+    gScore = {}
+    gScore[initial_node] = 0
+
+    fScore = {}
+    fScore[initial_node] = heuristic(initial_node, dest_node)
+
+    while unexplored_set != []:
+        u = unexplored_set.pop()[1]
+        #print("exploring %s" % u)
+
+        # if we found the end node
+        if u == dest_node:
+            #print("\nu is actually the destination! reconstructing path...")
+            current_node = u
+            actions = []
+            while current_node in parent_of:
+                actions.append(edge_of[current_node])
+                current_node = parent_of[current_node]
+            actions.reverse()
+            return actions
+
+        explored_set.append(u)
+
+        for node in graph.neighbors(u):
+            if node not in explored_set:
+                edge = graph.distance(u, node)
+                tempGScore = gScore[u] + edge.weight
+                if node not in gScore:
+                    unexplored_set.append((float('inf'), node))
+                    gScore[node] = float('inf')
+                    fScore[node] = float('inf')
+                if tempGScore < gScore[node]:
+                    unexplored_set.remove((fScore[node], node))
+
+                    parent_of[node] = u
+                    edge_of[node] = edge
+
+                    gScore[node] = tempGScore
+                    fScore[node] = tempGScore + heuristic(node, dest_node)
+                    unexplored_set.append((fScore[node], node))
+
+        # sort the priority queue
+        unexplored_set.sort(reverse=True)
+    return []
+
+def heuristic(node, goal):
+    dx = abs(node.data.x - goal.data.x)
+    dy = abs(node.data.y - goal.data.y)
+    return math.sqrt(dx * dx + dy * dy)
