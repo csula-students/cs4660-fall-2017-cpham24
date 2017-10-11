@@ -18,7 +18,7 @@ def bfs(graph, initial_node, dest_node):
 
     distance_of[initial_node] = 0
 
-    while not q.empty():
+    while len(q) > 0:
         u = q.pop()[1]
 
         for node in graph.neighbors(u):
@@ -81,7 +81,7 @@ def dijkstra_search(graph, initial_node, dest_node):
     q = []
     q.append((0, initial_node))
 
-    while q != []:
+    while len(q) > 0:
         u = q.pop()[1]
 
         for v in graph.neighbors(u):
@@ -131,7 +131,7 @@ def a_star_search(graph, initial_node, dest_node):
     fScore = {}
     fScore[initial_node] = heuristic(initial_node, dest_node)
 
-    while unexplored_set != []:
+    while len(unexplored_set) > 0:
         u = unexplored_set.pop()[1]
         #print("exploring %s" % u)
 
