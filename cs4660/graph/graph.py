@@ -56,6 +56,8 @@ def construct_graph_from_file(graph, file_path):
         edg = parse_line_to_edge(line)
         graph.add_edge(edg)
 
+    f.close()
+
     return graph
 
 def parse_line_to_edge(line):

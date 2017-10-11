@@ -30,7 +30,8 @@ def bfs(graph, initial_node, dest_node):
                 # continue to enqueue if we haven't reached the end
                 if node != dest_node:
                     q.append((distance_of[node], node))
-        q.sort(reverse=True)
+        q = sorted(q, key=lambda x:x[0])
+        q.reverse()
 
     # actions is a list of edges
     actions = []
@@ -100,7 +101,8 @@ def dijkstra_search(graph, initial_node, dest_node):
                 edge_to[v] = edge
 
         # sort priority
-        q.sort(reverse=True)
+        q = sorted(q, key=lambda x:x[0])
+        q.reverse()
     
     actions = []
     current_node = dest_node
@@ -167,7 +169,8 @@ def a_star_search(graph, initial_node, dest_node):
                     unexplored_set.append((fScore[node], node))
 
         # sort the priority queue
-        unexplored_set.sort(reverse=True)
+        unexplored_set = sorted(unexplored_set, key=lambda x:x[0])
+        unexplored_set.reverse()
     return []
 
 def heuristic(node, goal):
