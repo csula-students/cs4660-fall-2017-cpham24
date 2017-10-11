@@ -1,7 +1,6 @@
 """
 Searches module defines all different search algorithms
 """
-from Queue import PriorityQueue
 import math
 
 def bfs(graph, initial_node, dest_node):
@@ -14,13 +13,13 @@ def bfs(graph, initial_node, dest_node):
     parent_of = {}
     edge_to = {}
 
-    q = PriorityQueue()
-    q.put((0, initial_node));
+    q = []
+    q.append((0, initial_node));
 
     distance_of[initial_node] = 0
 
     while not q.empty():
-        u = q.get()[1]
+        u = q.pop()[1]
 
         for node in graph.neighbors(u):
             if node not in distance_of:
@@ -30,7 +29,8 @@ def bfs(graph, initial_node, dest_node):
 
                 # continue to enqueue if we haven't reached the end
                 if node != dest_node:
-                    q.put((distance_of[node], node))
+                    q.append((distance_of[node], node))
+        q.sort(reverse=True)
 
     # actions is a list of edges
     actions = []

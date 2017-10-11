@@ -45,7 +45,6 @@ def parse_grid_file(graph, file_path):
 
     f = open(file_path, encoding='utf-8')
     content = f.readlines()
-    nodes = []
     last_row = []
     # ignore the top and bottom bounding lines
     rows = len(content)-2
@@ -57,7 +56,6 @@ def parse_grid_file(graph, file_path):
         while i < cols:
             k = (i-1)/2
             node = Node(Tile(k, j, "" + line[i] + line[i+1]))
-            nodes.append(node)
             graph.add_node(node)
             i+=2
             
