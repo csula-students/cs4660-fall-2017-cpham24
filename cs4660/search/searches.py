@@ -179,4 +179,4 @@ def a_star_search(graph, initial_node, dest_node):
 def heuristic(node, goal):
     dx = node.data.x - goal.data.x
     dy = node.data.y - goal.data.y
-    return 2*math.sqrt(dx * dx + dy * dy)
+    return 3*math.sqrt(dx * dx + dy * dy)

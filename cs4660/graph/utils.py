@@ -31,8 +31,6 @@ class Tile(object):
     def __hash__(self):
         return hash(str(self.x) + str(self.y) + self.symbol)
 
-
-
 def parse_grid_file(graph, file_path):
     """
     ParseGridFile parses the grid file implementation from the file path line
