@@ -30,6 +30,8 @@ def bfs(graph, initial_node, dest_node):
                 # continue to enqueue if we haven't reached the end
                 if node != dest_node:
                     q.append((distance_of[node], node))
+
+        # sort priority
         q = sorted(q, key=lambda x:x[0])
         q.reverse()
 
@@ -122,6 +124,7 @@ def a_star_search(graph, initial_node, dest_node):
     uses graph to do search from the initial_node to dest_node
     returns a list of actions going from the initial node to dest_node
     """
+    #print("finding %s to %s" % (initial_node, dest_node))
     explored_set = []
     unexplored_set = [(0, initial_node)]
     parent_of = {}
@@ -135,7 +138,7 @@ def a_star_search(graph, initial_node, dest_node):
 
     while len(unexplored_set) > 0:
         u = unexplored_set.pop()[1]
-        #print("exploring %s" % u)
+        #print("explored %i nodes, currently %s" % (len(explored_set) + 1, u))
 
         # if we found the end node
         if u == dest_node:
@@ -174,6 +177,6 @@ def a_star_search(graph, initial_node, dest_node):
     return []
 
 def heuristic(node, goal):
-    dx = abs(node.data.x - goal.data.x)
-    dy = abs(node.data.y - goal.data.y)
-    return math.sqrt(dx * dx + dy * dy)
+    dx = node.data.x - goal.data.x
+    dy = node.data.y - goal.data.y
+    return 2*math.sqrt(dx * dx + dy * dy)

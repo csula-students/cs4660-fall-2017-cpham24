@@ -6,7 +6,8 @@ such as parsing
 
 import time
 from io import open
-from graph import graph as graph_scope
+from .graph import Node
+from .graph import Edge
 
 class Tile(object):
     """Node represents basic unit of graph"""
@@ -55,7 +56,7 @@ def parse_grid_file(graph, file_path):
         current_row = []
         while i < cols:
             k = int((i-1)/2)
-            node = graph_scope.Node(Tile(k, j, "" + line[i] + line[i+1]))
+            node = Node(Tile(k, j, "" + line[i] + line[i+1]))
             graph.add_node(node)
             i+=2
             
@@ -64,14 +65,14 @@ def parse_grid_file(graph, file_path):
                 if len(current_row) > 0:
                     last_node = current_row[-1]
                     if last_node.data.symbol != "##":
-                        graph.add_edge(graph_scope.Edge(last_node, node, 1))
-                        graph.add_edge(graph_scope.Edge(node, last_node, 1))
+                        graph.add_edge(Edge(last_node, node, 1))
+                        graph.add_edge(Edge(node, last_node, 1))
 
                 if len(last_row) > 0:
                     last_node = last_row[k]
                     if last_node.data.symbol != "##":
-                        graph.add_edge(graph_scope.Edge(last_node, node, 1))
-                        graph.add_edge(graph_scope.Edge(node, last_node, 1))
+                        graph.add_edge(Edge(last_node, node, 1))
+                        graph.add_edge(Edge(node, last_node, 1))
 
             current_row.append(node)
 
