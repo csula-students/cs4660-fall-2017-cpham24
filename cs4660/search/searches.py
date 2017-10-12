@@ -168,7 +168,9 @@ def a_star_search(graph, initial_node, dest_node):
                     edge_of[node] = edge
 
                     gScore[node] = tempGScore
-                    fScore[node] = tempGScore + heuristic(node, dest_node)
+                    tempfScore   = tempGScore + heuristic(node, dest_node)
+                    fScore[node] = tempfScore
+
                     unexplored_set.append((fScore[node], node))
 
         # sort the priority queue
@@ -179,4 +181,4 @@ def a_star_search(graph, initial_node, dest_node):
 def heuristic(node, goal):
     dx = node.data.x - goal.data.x
     dy = node.data.y - goal.data.y
-    return 3*math.sqrt(dx * dx + dy * dy)
+    return 2*math.sqrt(dx * dx + dy * dy)

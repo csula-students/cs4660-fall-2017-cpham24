@@ -49,24 +49,23 @@ def parse_grid_file(graph, file_path):
     rows = len(content)-2
     for j in range(rows):
         line = content[j+1]
-        cols = len(line)-3
         i = 1
         current_row = []
-        while i < cols:
+        while i < len(line)-3:
             k = int((i-1)/2)
-            node = Node(Tile(k, j, "" + line[i] + line[i+1]))
+            node = Node(Tile(k, j, line[i:i+2]))
             graph.add_node(node)
             i+=2
             
             if node.data.symbol != "##":
 
-                if len(current_row) > 0:
+                if node.data.x > 0:
                     last_node = current_row[-1]
                     if last_node.data.symbol != "##":
                         graph.add_edge(Edge(last_node, node, 1))
                         graph.add_edge(Edge(node, last_node, 1))
 
-                if len(last_row) > 0:
+                if node.data.y > 0:
                     last_node = last_row[k]
                     if last_node.data.symbol != "##":
                         graph.add_edge(Edge(last_node, node, 1))
@@ -85,14 +84,14 @@ def convert_edge_to_grid_actions(edges):
 
     e.g. Edge(Node(Tile(1, 2), Tile(2, 2), 1)) => "S"
     """
-    path = ""
+    path = []
     for edge in edges:
         if edge.to_node.data.x - edge.from_node.data.x > 0:
-            path += "E"
+            path.append("E")
         elif edge.to_node.data.x - edge.from_node.data.x < 0:
-            path += "W"
-        if edge.to_node.data.y - edge.from_node.data.y < 0:
-            path += "N"
+            path.append("W")
+        elif edge.to_node.data.y - edge.from_node.data.y < 0:
+            path.append("N")
         elif edge.to_node.data.y - edge.from_node.data.y > 0:
-            path += "S"
-    return path
+            path.append("S")
+    return "".join(path)
