@@ -18,6 +18,7 @@ class SimpleFile(object):
         except ValueError:
           """TODO: handle error"""
       self.numbers.append(li)
+    f.close()
 
   def get_mean(self, line_number):
     list = self.numbers[line_number]
