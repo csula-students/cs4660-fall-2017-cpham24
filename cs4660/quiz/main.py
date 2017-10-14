@@ -11,6 +11,7 @@ TODO: implement Dijkstra utilizing the path with highest effect number
 """
 
 import json
+import codecs
 
 # http lib import for Python 2 and 3: alternative 4
 try:
@@ -47,8 +48,9 @@ def __json_request(target_url, body):
     jsondata = json.dumps(body)
     jsondataasbytes = jsondata.encode('utf-8')   # needs to be bytes
     req.add_header('Content-Length', len(jsondataasbytes))
-    response = json.load(urlopen(req, jsondataasbytes))
-    return response
+    response = urlopen(req, jsondataasbytes)
+    reader = codecs.getreader('utf-8')
+    return json.load(reader(response))
 
 def bfs(init_id, dest_id):
     """
